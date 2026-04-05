@@ -1,0 +1,178 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+
+  # -----------------------------------------------
+  # THE NOTICEBOARD — Announcements
+  # -----------------------------------------------
+  - name: "posts"
+    label: "The Noticeboard"
+    folder: "posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Posted By (Officer Name)", name: "officer", widget: "string" }
+      - label: "Tag"
+        name: "tag"
+        widget: "select"
+        options:
+          - Guild News
+          - Event Announcement
+          - Lore Drop
+          - OOC Update
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # -----------------------------------------------
+  # THE ROSTER — Character Profiles
+  # -----------------------------------------------
+  - name: "characters"
+    label: "The Roster"
+    folder: "characters"
+    create: true
+    slug: "{{fields.character_name | slugify}}"
+    fields:
+
+      # Header Block
+      - { label: "Character Name", name: "character_name", widget: "string" }
+      - { label: "Race", name: "race", widget: "string" }
+      - { label: "Age", name: "age", widget: "string" }
+      - { label: "Gender & Pronouns", name: "gender_pronouns", widget: "string" }
+      - label: "Primary Class"
+        name: "primary_class"
+        widget: "select"
+        options:
+          - Dragonknight
+          - Sorcerer
+          - Nightblade
+          - Templar
+          - Warden
+          - Necromancer
+          - Arcanist
+      - label: "Secondary Class"
+        name: "secondary_class"
+        widget: "select"
+        required: false
+        options:
+          - Dragonknight
+          - Sorcerer
+          - Nightblade
+          - Templar
+          - Warden
+          - Necromancer
+          - Arcanist
+      - { label: "Combat Style / Fighting Approach", name: "combat_style", widget: "text", hint: "Describe in your own words how your classes blend together in practice." }
+      - label: "Guild Rank"
+        name: "guild_rank"
+        widget: "select"
+        options:
+          - Member
+          - Officer
+          - Guild Master
+          # NOTE: Replace these with your actual guild rank names when ready
+      - { label: "Portrait", name: "portrait", widget: "image", required: false }
+
+      # Appearance
+      - { label: "Physical Description", name: "physical_description", widget: "text", hint: "Height, build, coloring, how they carry themselves." }
+      - { label: "Notable Features", name: "notable_features", widget: "text", required: false, hint: "Scars, tattoos, unusual markings — anything that stands out at a glance." }
+
+      # Character
+      - { label: "Personality", name: "personality", widget: "text" }
+      - { label: "Strengths", name: "strengths", widget: "text" }
+      - { label: "Flaws & Weaknesses", name: "flaws_weaknesses", widget: "text" }
+      - { label: "Fears", name: "fears", widget: "text" }
+      - { label: "Motivations & Goals", name: "motivations_goals", widget: "text", hint: "What keeps them traveling with the guild?" }
+
+      # Background
+      - { label: "Birthplace", name: "birthplace", widget: "string" }
+      - label: "Birthsign"
+        name: "birthsign"
+        widget: "select"
+        options:
+          - The Warrior
+          - The Mage
+          - The Thief
+          - The Serpent
+          - The Lady
+          - The Steed
+          - The Lord
+          - The Apprentice
+          - The Atronach
+          - The Ritual
+          - The Lover
+          - The Shadow
+          - The Tower
+      - { label: "History / Backstory", name: "backstory", widget: "markdown" }
+      - { label: "Secrets", name: "secrets", widget: "text", required: false, hint: "Things their character hasn't told the guild IC. Optional." }
+
+      # Guild Role
+      - { label: "What They Bring to the Estate", name: "contribution", widget: "text", hint: "Are they a guard, trader, translator, historian? Their IC function." }
+      - { label: "How They Found the Sugar Falls Estate", name: "how_found", widget: "text" }
+      - { label: "Usual Corner at the Sugar Falls", name: "usual_corner", widget: "string", hint: "The bar, a back table, near the fire, outside on the steps..." }
+      - { label: "First Night at the Sugar Falls", name: "first_night", widget: "text", hint: "How and when did their character first walk through the door?" }
+      - { label: "Notable Relationships", name: "relationships", widget: "text", required: false, hint: "Other guild members they are close to, rivals, etc." }
+
+      # RP Hooks
+      - label: "RP Hooks"
+        name: "rp_hooks"
+        widget: "list"
+        hint: "Add a few hooks other players can use as an excuse to approach this character."
+        field: { label: "Hook", name: "hook", widget: "string" }
+
+      # OOC Section
+      - { label: "Player Name / Discord Handle", name: "player_discord", widget: "string" }
+      - { label: "RP Preferences", name: "rp_preferences", widget: "text", hint: "Combat-heavy, drama, slice of life, all of the above, etc." }
+      - { label: "Comfort & Limits", name: "comfort_limits", widget: "text", required: false, hint: "Optional but encouraged." }
+      - label: "Character Status"
+        name: "character_status"
+        widget: "select"
+        options:
+          - Active
+          - Traveling
+          - On Hiatus
+
+  # -----------------------------------------------
+  # THE ROAD SO FAR — Story Archive
+  # -----------------------------------------------
+  - name: "stories"
+    label: "The Road So Far"
+    folder: "stories"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options:
+          - Session Transcript
+          - Prose
+      - { label: "Story Arc", name: "arc", widget: "string", required: false, hint: "Which story arc does this belong to? Leave blank if standalone." }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # -----------------------------------------------
+  # THE CALENDAR — Events
+  # -----------------------------------------------
+  - name: "events"
+    label: "The Calendar"
+    folder: "events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Event Name", name: "title", widget: "string" }
+      - { label: "Date & Time", name: "date", widget: "datetime" }
+      - { label: "IC Premise", name: "ic_premise", widget: "text", hint: "The in-character reason this event is happening." }
+      - { label: "OOC Details", name: "ooc_details", widget: "text", hint: "Platform, voice or text, any requirements, etc." }
+      - label: "Open To"
+        name: "open_to"
+        widget: "select"
+        options:
+          - All Members
+          - Invite Only
