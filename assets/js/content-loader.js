@@ -589,7 +589,12 @@ async function renderEvents() {
 // ============================================================
 //  INIT — detect current page and run the right renderer
 // ============================================================
-window.addEventListener('load', function init() {
+function waitForLibsAndInit() {
+  if (typeof jsyaml === 'undefined' || typeof marked === 'undefined') {
+    setTimeout(waitForLibsAndInit, 50);
+    return;
+  }
+
   const path = window.location.pathname.split('/').pop() || 'index.html';
 
   const routes = {
@@ -603,4 +608,6 @@ window.addEventListener('load', function init() {
 
   const renderer = routes[path];
   if (renderer) renderer();
-});
+}
+
+waitForLibsAndInit();
