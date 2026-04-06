@@ -7,8 +7,8 @@
 //  !! CONFIGURATION — Update both values before pushing !!
 // ------------------------------------------------------------
 const CONFIG = {
-  repoOwner : 'your-github-username',   // e.g. 'jsmith'
-  repoName  : 'turn-the-page',          // your actual repo name
+  repoOwner : 'Asdf-Bot-Program',   // e.g. 'jsmith'
+  repoName  : 'Turn-the-Page',          // your actual repo name
   branch    : 'main',
 };
 
