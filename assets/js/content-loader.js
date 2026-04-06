@@ -8,7 +8,7 @@
 // ------------------------------------------------------------
 const CONFIG = {
   repoOwner : 'Asdf-Bot-Program',   // e.g. 'jsmith'
-  repoName  : 'Turn-the-Page',          // your actual repo name
+  repoName  : 'turn-the-page',          // your actual repo name
   branch    : 'main',
 };
 
