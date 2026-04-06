@@ -72,11 +72,168 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/content-loader.js?v=2"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+const CONFIG = {
+  repoOwner : 'Asdf-Bot-Program',
+  repoName  : 'Turn-the-Page',
+  branch    : 'main',
+};
+
+const API_BASE = `https://api.github.com/repos/${CONFIG.repoOwner}/${CONFIG.repoName}/contents`;
+
+function parseFrontmatter(rawText) {
+  const match = rawText.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) return { data: {}, body: rawText };
+  try {
+    const data = jsyaml.load(match[1]) || {};
+    const body = match[2].trim();
+    return { data, body };
+  } catch (err) {
+    return { data: {}, body: rawText };
+  }
+}
+
+function formatDateParts(dateStr) {
+  if (!dateStr) return { day: '??', month: '???' };
+  const d = new Date(dateStr);
+  if (isNaN(d)) return { day: '??', month: '???' };
+  return {
+    day  : d.getDate().toString().padStart(2, '0'),
+    month: d.toLocaleDateString('en-US', { month: 'short' }),
+  };
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function showLoading(el) {
+  el.innerHTML = `<div class="content-loading">
+    <span class="loading-ornament">✦</span>
+    <p>The scribes are retrieving the records…</p>
+  </div>`;
+}
+
+function showEmpty(el, message) {
+  el.innerHTML = `<div class="content-empty">
+    <span class="content-empty-ornament">✦ ✦ ✦</span>
+    <p>${esc(message)}</p>
+  </div>`;
+}
+
+function showError(el, message) {
+  el.innerHTML = `<div class="content-empty">
+    <span class="content-empty-ornament">✦</span>
+    <p style="color:var(--burgundy)">${esc(message)}</p>
+  </div>`;
+}
+
+async function fetchFolder(folder) {
+  const res = await fetch(`${API_BASE}/${folder}`, {
+    headers: { Accept: 'application/vnd.github.v3+json' },
+    cache: 'no-store',
+  });
+  if (res.status === 404) return [];
+  if (res.status === 403) throw new Error('GitHub API rate limit reached. Please try again later.');
+  if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+  const files = await res.json();
+  return files
+    .filter(f => f.name.endsWith('.md') && f.name !== '.gitkeep' && f.name !== 'test.gitkeep')
+    .map(f => ({ name: f.name, slug: f.name.replace(/\.md$/, ''), downloadUrl: f.download_url }));
+}
+
+async function fetchAndParse(fileInfo) {
+  const res  = await fetch(fileInfo.downloadUrl, { cache: 'no-store' });
+  const text = await res.text();
+  const { data, body } = parseFrontmatter(text);
+  return { slug: fileInfo.slug, data, body };
+}
+
+async function loadFolder(folder, sortKey = 'date', sortAsc = false) {
+  const files   = await fetchFolder(folder);
+  if (!files.length) return [];
+  const entries = await Promise.all(files.map(fetchAndParse));
+  entries.sort((a, b) => {
+    const va = a.data[sortKey] || '';
+    const vb = b.data[sortKey] || '';
+    if (va < vb) return sortAsc ? -1 :  1;
+    if (va > vb) return sortAsc ?  1 : -1;
+    return 0;
+  });
+  return entries;
+}
+
+async function renderEvents() {
+  const el = document.getElementById('event-list');
+  if (!el) return;
+  showLoading(el);
+  try {
+    const events = await loadFolder('events', 'date', true);
+    if (!events.length) {
+      showEmpty(el, 'No events are currently scheduled. Check back soon.');
+      return;
+    }
+    const now      = new Date();
+    const upcoming = events.filter(e => !e.data.date || new Date(e.data.date) >= now);
+    const past     = events.filter(e =>  e.data.date && new Date(e.data.date) <  now);
+
+    function eventCard({ data: d }) {
+      const { day, month } = formatDateParts(d.date);
+      const openClass = d.open_to === 'Invite Only'
+        ? 'event-open--invite'
+        : 'event-open--all';
+      return `
+        <div class="event-card">
+          <div class="event-date-block">
+            <span class="event-date-day">${day}</span>
+            <span class="event-date-month">${month}</span>
+          </div>
+          <div class="event-info">
+            <h2 class="event-title">
+              ${esc(d.title)}
+              <span class="event-open ${openClass}">${esc(d.open_to) || 'All Members'}</span>
+            </h2>
+            <p class="event-ic">${esc(d.ic_premise)}</p>
+            <p class="event-ooc">${esc(d.ooc_details)}</p>
+          </div>
+        </div>`;
+    }
+
+    let html = '';
+    if (upcoming.length) {
+      html += upcoming.map(eventCard).join('');
+    } else {
+      html += `<div class="content-empty">
+        <span class="content-empty-ornament">✦ ✦ ✦</span>
+        <p>No upcoming events at the moment.</p>
+      </div>`;
+    }
+    if (past.length) {
+      html += `
+        <h3 style="font-family:var(--font-heading);color:var(--ink-faint);font-size:0.8rem;
+                   letter-spacing:0.12em;text-transform:uppercase;text-align:center;
+                   margin:2.5rem 0 1rem; opacity:0.7;">Past Events</h3>
+        <div style="opacity:0.55">
+          ${past.map(eventCard).join('')}
+        </div>`;
+    }
+    el.innerHTML = html;
+  } catch (err) {
+    showError(el, err.message || 'Could not load events. Please try again later.');
+  }
+}
+
+renderEvents();
+</script>
 
 </body>
 </html>
