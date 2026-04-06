@@ -603,4 +603,4 @@ document.addEventListener('DOMContentLoaded', function init() {
 
   const renderer = routes[path];
   if (renderer) renderer();
-})();
+});
