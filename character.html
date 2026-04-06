@@ -56,11 +56,175 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/content-loader.js?v=2"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+const CONFIG = {
+  repoOwner : 'Asdf-Bot-Program',
+  repoName  : 'Turn-the-Page',
+  branch    : 'main',
+};
+
+const RAW_BASE = `https://raw.githubusercontent.com/${CONFIG.repoOwner}/${CONFIG.repoName}/${CONFIG.branch}`;
+
+function parseFrontmatter(rawText) {
+  const match = rawText.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) return { data: {}, body: rawText };
+  try {
+    const data = jsyaml.load(match[1]) || {};
+    const body = match[2].trim();
+    return { data, body };
+  } catch (err) {
+    return { data: {}, body: rawText };
+  }
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function showLoading(el) {
+  el.innerHTML = `<div class="content-loading">
+    <span class="loading-ornament">✦</span>
+    <p>The scribes are retrieving the records…</p>
+  </div>`;
+}
+
+function showError(el, message) {
+  el.innerHTML = `<div class="content-empty">
+    <span class="content-empty-ornament">✦</span>
+    <p style="color:var(--burgundy)">${esc(message)}</p>
+  </div>`;
+}
+
+function field(label, value) {
+  if (!value) return '';
+  return `
+    <div class="profile-field">
+      <span class="profile-field-label">${label}</span>
+      <p class="profile-field-value">${esc(String(value))}</p>
+    </div>`;
+}
+
+async function renderCharacterProfile() {
+  const main = document.getElementById('profile-main');
+  if (!main) return;
+  const params = new URLSearchParams(window.location.search);
+  const slug   = params.get('slug');
+  if (!slug) { showError(main, 'No character specified.'); return; }
+  showLoading(main);
+  try {
+    const res  = await fetch(`${RAW_BASE}/characters/${slug}.md`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Character not found.');
+    const text = await res.text();
+    const { data: d } = parseFrontmatter(text);
+    document.title = `Turn the Page | ${d.character_name || 'Character Profile'}`;
+    const bannerTitle    = document.getElementById('profile-banner-title');
+    const bannerSubtitle = document.getElementById('profile-banner-subtitle');
+    if (bannerTitle)    bannerTitle.textContent    = d.character_name || 'Character Profile';
+    if (bannerSubtitle) bannerSubtitle.textContent = `${d.race || ''} ${d.guild_rank ? '· ' + d.guild_rank : ''}`;
+    const statusClass = {
+      'Active'    : 'character-status--active',
+      'Traveling' : 'character-status--traveling',
+      'On Hiatus' : 'character-status--hiatus',
+    }[d.character_status] || 'character-status--active';
+    const classList = d.secondary_class
+      ? `${esc(d.primary_class)} / ${esc(d.secondary_class)}`
+      : esc(d.primary_class);
+    let hooksHTML = '<p class="profile-field-value" style="font-style:italic;color:var(--ink-faint)">None listed.</p>';
+    if (d.rp_hooks && Array.isArray(d.rp_hooks) && d.rp_hooks.length) {
+      hooksHTML = `<ul class="rp-hooks-list">
+        ${d.rp_hooks.map(h => `<li>${esc(h.hook || h)}</li>`).join('')}
+      </ul>`;
+    }
+    main.innerHTML = `
+      <div class="profile-layout">
+        <div class="profile-header">
+          ${d.portrait
+            ? `<img class="profile-portrait" src="${esc(d.portrait)}" alt="Portrait of ${esc(d.character_name)}">`
+            : `<div class="character-portrait-placeholder" style="border-radius:4px;border:3px solid var(--gold);height:300px;">⚜</div>`}
+          <div class="profile-headline">
+            <h2>${esc(d.character_name)}</h2>
+            <p class="profile-subtitle">${esc(d.race)} &nbsp;·&nbsp; ${formatDate(d.date) || ''}</p>
+            <div class="profile-badges">
+              <span class="character-rank">${esc(d.guild_rank)}</span>
+              <span class="character-status ${statusClass}">${esc(d.character_status)}</span>
+            </div>
+            <p><strong style="font-family:var(--font-heading);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)">Age:</strong>
+               <span style="font-style:italic;color:var(--ink-light)"> ${esc(d.age)}</span></p>
+            <p><strong style="font-family:var(--font-heading);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)">Pronouns:</strong>
+               <span style="font-style:italic;color:var(--ink-light)"> ${esc(d.gender_pronouns)}</span></p>
+            <p><strong style="font-family:var(--font-heading);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)">Class:</strong>
+               <span style="font-style:italic;color:var(--ink-light)"> ${classList}</span></p>
+            ${d.combat_style ? `<p style="margin-top:0.5rem;font-style:italic;color:var(--ink-light);font-size:0.9rem">${esc(d.combat_style)}</p>` : ''}
+          </div>
+        </div>
+        <div class="profile-section">
+          <h3 class="profile-section-title">Appearance</h3>
+          ${field('Physical Description', d.physical_description)}
+          ${field('Notable Features', d.notable_features)}
+        </div>
+        <div class="profile-section">
+          <h3 class="profile-section-title">Character</h3>
+          ${field('Personality', d.personality)}
+          ${field('Strengths', d.strengths)}
+          ${field('Flaws & Weaknesses', d.flaws_weaknesses)}
+          ${field('Fears', d.fears)}
+          ${field('Motivations & Goals', d.motivations_goals)}
+        </div>
+        <div class="profile-section">
+          <h3 class="profile-section-title">Background</h3>
+          ${field('Birthplace', d.birthplace)}
+          ${field('Birthsign', d.birthsign)}
+          <div class="profile-field">
+            <span class="profile-field-label">History & Backstory</span>
+            <div class="profile-field-value">${d.backstory ? marked.parse(String(d.backstory)) : '<em>Not yet recorded.</em>'}</div>
+          </div>
+          ${d.secrets ? field('Secrets', d.secrets) : ''}
+        </div>
+        <div class="profile-section">
+          <h3 class="profile-section-title">Guild Role</h3>
+          ${field('What They Bring to the Estate', d.contribution)}
+          ${field('How They Found the Sugar Falls Estate', d.how_found)}
+          ${field('Usual Corner at the Sugar Falls', d.usual_corner)}
+          ${field('First Night at the Sugar Falls', d.first_night)}
+          ${field('Notable Relationships', d.relationships)}
+        </div>
+        <div class="profile-section">
+          <h3 class="profile-section-title">RP Hooks</h3>
+          ${hooksHTML}
+        </div>
+        <div class="profile-section profile-ooc">
+          <h3 class="profile-section-title">Out of Character</h3>
+          ${field('Player / Discord Handle', d.player_discord)}
+          ${field('RP Preferences', d.rp_preferences)}
+          ${d.comfort_limits ? field('Comfort & Limits', d.comfort_limits) : ''}
+        </div>
+        <div style="margin-top:2rem;text-align:center">
+          <a href="roster.html" class="btn btn--outline">← Back to the Roster</a>
+        </div>
+      </div>`;
+  } catch (err) {
+    showError(main, err.message || 'Could not load this character. Please try again later.');
+  }
+}
+
+renderCharacterProfile();
+</script>
 
 </body>
 </html>
