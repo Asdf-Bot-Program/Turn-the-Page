@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Asdf-Bot-Program/Turn-the-Page
   branch: main
+  base_url: https://api.netlify.com
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
