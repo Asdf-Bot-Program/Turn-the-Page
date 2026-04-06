@@ -589,7 +589,7 @@ async function renderEvents() {
 // ============================================================
 //  INIT — detect current page and run the right renderer
 // ============================================================
-(function init() {
+document.addEventListener('DOMContentLoaded', function init() {
   const path = window.location.pathname.split('/').pop() || 'index.html';
 
   const routes = {
