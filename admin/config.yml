@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Asdf-Bot-Program/Turn-the-Page
   branch: main
-  base_url: https://api.netlify.com
+  base_url: https://turn-the-page-oauth.wgay025.workers.dev
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
