@@ -56,11 +56,103 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/content-loader.js?v=2"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+const CONFIG = {
+  repoOwner : 'Asdf-Bot-Program',
+  repoName  : 'Turn-the-Page',
+  branch    : 'main',
+};
+
+const RAW_BASE = `https://raw.githubusercontent.com/${CONFIG.repoOwner}/${CONFIG.repoName}/${CONFIG.branch}`;
+
+function parseFrontmatter(rawText) {
+  const match = rawText.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) return { data: {}, body: rawText };
+  try {
+    const data = jsyaml.load(match[1]) || {};
+    const body = match[2].trim();
+    return { data, body };
+  } catch (err) {
+    return { data: {}, body: rawText };
+  }
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function showLoading(el) {
+  el.innerHTML = `<div class="content-loading">
+    <span class="loading-ornament">✦</span>
+    <p>The scribes are retrieving the records…</p>
+  </div>`;
+}
+
+function showError(el, message) {
+  el.innerHTML = `<div class="content-empty">
+    <span class="content-empty-ornament">✦</span>
+    <p style="color:var(--burgundy)">${esc(message)}</p>
+  </div>`;
+}
+
+async function renderStoryFull() {
+  const main = document.getElementById('story-main');
+  if (!main) return;
+  const params = new URLSearchParams(window.location.search);
+  const slug   = params.get('slug');
+  if (!slug) { showError(main, 'No story specified.'); return; }
+  showLoading(main);
+  try {
+    const res  = await fetch(`${RAW_BASE}/stories/${slug}.md`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Story not found.');
+    const text = await res.text();
+    const { data: d, body } = parseFrontmatter(text);
+    document.title = `Turn the Page | ${d.title || 'Story'}`;
+    const bannerTitle    = document.getElementById('story-banner-title');
+    const bannerSubtitle = document.getElementById('story-banner-subtitle');
+    if (bannerTitle)    bannerTitle.textContent    = d.title || 'Untitled';
+    if (bannerSubtitle) bannerSubtitle.textContent =
+      `${d.type || 'Session Transcript'} · ${formatDate(d.date)}${d.arc ? ' · ' + d.arc : ''}`;
+    const badgeClass = d.type === 'Prose'
+      ? 'story-type-badge--prose'
+      : 'story-type-badge--transcript';
+    main.innerHTML = `
+      <div style="max-width:800px; margin:0 auto;">
+        <div style="margin-bottom:1.5rem; display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
+          <span class="story-type-badge ${badgeClass}">${esc(d.type) || 'Session Transcript'}</span>
+          ${d.arc ? `<span class="story-arc">${esc(d.arc)}</span>` : ''}
+          <span style="font-style:italic; color:var(--ink-faint); font-size:0.85rem">${formatDate(d.date)}</span>
+        </div>
+        <div class="story-body prose-content">
+          ${body ? marked.parse(body) : '<p><em>No content recorded yet.</em></p>'}
+        </div>
+        <div style="margin-top:2.5rem; text-align:center;">
+          <a href="road-so-far.html" class="btn btn--outline">← Back to the Road So Far</a>
+        </div>
+      </div>`;
+  } catch (err) {
+    showError(main, err.message || 'Could not load this story. Please try again later.');
+  }
+}
+
+renderStoryFull();
+</script>
 
 </body>
 </html>
