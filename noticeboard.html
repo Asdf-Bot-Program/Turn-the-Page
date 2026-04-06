@@ -66,11 +66,132 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/content-loader.js?v=2"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+const CONFIG = {
+  repoOwner : 'Asdf-Bot-Program',
+  repoName  : 'Turn-the-Page',
+  branch    : 'main',
+};
+
+const API_BASE = `https://api.github.com/repos/${CONFIG.repoOwner}/${CONFIG.repoName}/contents`;
+const RAW_BASE = `https://raw.githubusercontent.com/${CONFIG.repoOwner}/${CONFIG.repoName}/${CONFIG.branch}`;
+
+function parseFrontmatter(rawText) {
+  const match = rawText.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) return { data: {}, body: rawText };
+  try {
+    const data = jsyaml.load(match[1]) || {};
+    const body = match[2].trim();
+    return { data, body };
+  } catch (err) {
+    return { data: {}, body: rawText };
+  }
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function showLoading(el) {
+  el.innerHTML = `<div class="content-loading">
+    <span class="loading-ornament">✦</span>
+    <p>The scribes are retrieving the records…</p>
+  </div>`;
+}
+
+function showEmpty(el, message) {
+  el.innerHTML = `<div class="content-empty">
+    <span class="content-empty-ornament">✦ ✦ ✦</span>
+    <p>${esc(message)}</p>
+  </div>`;
+}
+
+function showError(el, message) {
+  el.innerHTML = `<div class="content-empty">
+    <span class="content-empty-ornament">✦</span>
+    <p style="color:var(--burgundy)">${esc(message)}</p>
+  </div>`;
+}
+
+async function fetchFolder(folder) {
+  const res = await fetch(`${API_BASE}/${folder}`, {
+    headers: { Accept: 'application/vnd.github.v3+json' },
+    cache: 'no-store',
+  });
+  if (res.status === 404) return [];
+  if (res.status === 403) throw new Error('GitHub API rate limit reached. Please try again later.');
+  if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+  const files = await res.json();
+  return files
+    .filter(f => f.name.endsWith('.md') && f.name !== '.gitkeep' && f.name !== 'test.gitkeep')
+    .map(f => ({ name: f.name, slug: f.name.replace(/\.md$/, ''), downloadUrl: f.download_url }));
+}
+
+async function fetchAndParse(fileInfo) {
+  const res  = await fetch(fileInfo.downloadUrl, { cache: 'no-store' });
+  const text = await res.text();
+  const { data, body } = parseFrontmatter(text);
+  return { slug: fileInfo.slug, data, body };
+}
+
+async function loadFolder(folder, sortKey = 'date', sortAsc = false) {
+  const files   = await fetchFolder(folder);
+  if (!files.length) return [];
+  const entries = await Promise.all(files.map(fetchAndParse));
+  entries.sort((a, b) => {
+    const va = a.data[sortKey] || '';
+    const vb = b.data[sortKey] || '';
+    if (va < vb) return sortAsc ? -1 :  1;
+    if (va > vb) return sortAsc ?  1 : -1;
+    return 0;
+  });
+  return entries;
+}
+
+async function renderNoticeboard() {
+  const el = document.getElementById('notice-list');
+  if (!el) return;
+  showLoading(el);
+  try {
+    const posts = await loadFolder('posts', 'date', false);
+    if (!posts.length) {
+      showEmpty(el, 'No announcements have been posted yet. Check back soon.');
+      return;
+    }
+    el.innerHTML = posts.map(({ slug, data, body }) => `
+      <article class="notice-card" id="${esc(slug)}">
+        <span class="notice-tag">${esc(data.tag) || 'Guild News'}</span>
+        <h2 class="notice-title">${esc(data.title)}</h2>
+        <p class="notice-date">
+          Posted by <span class="officer-name">${esc(data.officer)}</span>
+          &nbsp;·&nbsp; ${formatDate(data.date)}
+        </p>
+        <div class="notice-body">${marked.parse(body)}</div>
+      </article>
+    `).join('');
+  } catch (err) {
+    showError(el, err.message || 'Could not load announcements. Please try again later.');
+  }
+}
+
+renderNoticeboard();
+</script>
 
 </body>
 </html>
