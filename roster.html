@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Roster — Meet the members of Turn the Page at the Sugar Falls Estate.">
+  <title>Turn the Page | The Roster</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="guild-brand">
+        <span class="guild-emblem">⚜</span>
+        <div class="guild-title">
+          <a href="index.html"><span class="site-title">Turn the Page</span></a>
+          <p class="site-subtitle">Sugar Falls Estate · Reaper's March</p>
+        </div>
+        <span class="guild-emblem">⚜</span>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html"        class="nav-link">The Hearthfire</a></li>
+          <li><a href="noticeboard.html"  class="nav-link">The Noticeboard</a></li>
+          <li><a href="roster.html"       class="nav-link active">The Roster</a></li>
+          <li><a href="compendium.html"   class="nav-link">The Compendium</a></li>
+          <li><a href="road-so-far.html"  class="nav-link">The Road So Far</a></li>
+          <li><a href="calendar.html"     class="nav-link">The Calendar</a></li>
+          <li><a href="join.html"         class="nav-link nav-link--join">Join the Estate</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-banner">
+    <h1 class="page-banner-title">The Roster</h1>
+    <p class="page-banner-subtitle">The wanderers, traders, and keepers of the Sugar Falls Estate</p>
+  </div>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="roster-grid" id="roster-grid">
+          <!-- Character cards are loaded here by main.js -->
+          <!-- Placeholder card shown until content is live -->
+          <div class="character-card">
+            <div class="character-portrait-placeholder">⚜</div>
+            <div class="character-info">
+              <h2 class="character-name">Character Name</h2>
+              <p class="character-meta">Race · Primary Class</p>
+              <span class="character-rank">Guild Rank</span>
+              <span class="character-status character-status--active">Active</span>
+              <p class="character-blurb">A short excerpt or tagline from the character's bio goes here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-guild">Turn the Page &nbsp;·&nbsp; Sugar Falls Estate &nbsp;·&nbsp; Reaper's March</p>
+      <p class="footer-note">An Elder Scrolls Online Roleplay Guild</p>
+      <a href="/admin/" class="footer-admin-link">Officer Login</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/content-loader.js"></script>
+
+</body>
+</html>
