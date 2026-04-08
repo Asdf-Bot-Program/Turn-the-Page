@@ -55,23 +55,16 @@
 
     <!-- ===================== FEATURED ANNOUNCEMENT ===================== -->
     <section class="section section--announcement">
-      <div class="container">
-        <h2 class="section-heading">Latest from the Noticeboard</h2>
-        <div class="notice-featured">
-          <span class="notice-tag">Guild News</span>
-          <h2 class="notice-title">Welcome to Our New Home</h2>
-          <p class="notice-date">
-            Posted by <span class="officer-name">Officer Name</span> &nbsp;·&nbsp; Month Day, Year
-          </p>
-          <p class="notice-excerpt">
-            The Sugar Falls Estate opens its doors to all who seek fellowship,
-            rare knowledge, and the company of those who know the value of a good story.
-            Come find us in Reaper's March — the kettle is always on.
-          </p>
-          <a href="noticeboard.html" class="btn btn--primary">Read More on the Noticeboard</a>
-        </div>
+  <div class="container">
+    <h2 class="section-heading">Latest from the Noticeboard</h2>
+    <div id="featured-notice" class="notice-featured">
+      <div class="content-loading">
+        <span class="loading-ornament">✦</span>
+        <p>The scribes are retrieving the records…</p>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
     <!-- ===================== TEASERS ===================== -->
     <section class="section section--teasers">
@@ -128,6 +121,100 @@
 
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="assets/js/main.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const CONFIG = {
+  repoOwner : 'Asdf-Bot-Program',
+  repoName  : 'Turn-the-Page',
+  branch    : 'main',
+};
+
+const API_BASE = `https://api.github.com/repos/${CONFIG.repoOwner}/${CONFIG.repoName}/contents`;
+
+function parseFrontmatter(rawText) {
+  const match = rawText.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) return { data: {}, body: rawText };
+  try {
+    const data = jsyaml.load(match[1]) || {};
+    const body = match[2].trim();
+    return { data, body };
+  } catch (err) {
+    return { data: {}, body: rawText };
+  }
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+async function renderFeaturedNotice() {
+  const el = document.getElementById('featured-notice');
+  if (!el) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/posts`, {
+      headers: { Accept: 'application/vnd.github.v3+json' },
+      cache: 'no-store',
+    });
+
+    if (!res.ok) throw new Error();
+
+    const files = await res.json();
+    const mdFiles = files
+      .filter(f => f.name.endsWith('.md') && f.name !== '.gitkeep' && f.name !== 'test.gitkeep')
+      .sort((a, b) => b.name.localeCompare(a.name));
+
+    if (!mdFiles.length) {
+      el.innerHTML = `<p style="font-style:italic;color:var(--ink-faint);text-align:center;">
+        No announcements yet. Check back soon.
+      </p>`;
+      return;
+    }
+
+    const latest = mdFiles[0];
+    const fileRes = await fetch(latest.download_url, { cache: 'no-store' });
+    const text = await fileRes.text();
+    const { data, body } = parseFrontmatter(text);
+
+    // Trim body to a short excerpt
+    const plainBody = body.replace(/[#*_>`-]/g, '').trim();
+    const excerpt = plainBody.length > 200
+      ? plainBody.slice(0, 200) + '…'
+      : plainBody;
+
+    el.innerHTML = `
+      <span class="notice-tag">${esc(data.tag) || 'Guild News'}</span>
+      <h2 class="notice-title">${esc(data.title)}</h2>
+      <p class="notice-date">
+        Posted by <span class="officer-name">${esc(data.officer)}</span>
+        &nbsp;·&nbsp; ${formatDate(data.date)}
+      </p>
+      <p class="notice-excerpt">${esc(excerpt)}</p>
+      <a href="noticeboard.html" class="btn btn--primary">Read More on the Noticeboard</a>`;
+
+  } catch (err) {
+    el.innerHTML = `<p style="font-style:italic;color:var(--ink-faint);text-align:center;">
+      Could not load the latest announcement.
+    </p>`;
+  }
+}
+
+renderFeaturedNotice();
+</script>
 
 </body>
 </html>
