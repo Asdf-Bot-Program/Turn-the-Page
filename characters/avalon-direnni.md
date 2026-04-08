@@ -9,6 +9,7 @@ combat_style: Duel welding swords, she often uses light and fast attacks to
   overwhelm her enemies. Mixed with enchanted swords that can produce a bright
   light, she often confuses her enemies during her attacks.
 guild_rank: Officer
+portrait: /assets/images/uploads/1246a4d9-1e71-4d4b-a047-3234cf12f8fb.png
 physical_description: Breton female often considered on the smaller side with
   long black hair put into a ponytail. Kind round face with glowing bright blue
   Azure Eyes. Often seen wearing light, dark blue, and black armor with multiple
