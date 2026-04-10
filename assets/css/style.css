@@ -940,6 +940,39 @@ h1, h2, h3, h4 {
 }
 
 /* ------------------------------------------------------------
+   Ticket Form Fields
+   ------------------------------------------------------------ */
+.ticket-field {
+  margin-bottom: 1.25rem;
+}
+ 
+.ticket-input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--parchment);
+  border: 1px solid var(--parchment-deep);
+  border-radius: var(--radius);
+  margin-top: 0.3rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  appearance: none;
+}
+ 
+.ticket-input:focus {
+  outline: none;
+  border-color: var(--burgundy);
+  box-shadow: 0 0 0 3px rgba(122,30,46,0.1);
+}
+ 
+.ticket-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------------------
    Loading / Empty / Error States
    ------------------------------------------------------------ */
 .content-loading,
