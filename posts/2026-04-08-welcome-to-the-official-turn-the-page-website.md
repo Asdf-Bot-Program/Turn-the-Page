@@ -1,5 +1,5 @@
 ---
-title: Welcome to the Official Turn the Page website
+title: Welcome to the Official Turn the Page Website
 date: 2026-04-08T18:37:00.000-04:00
 officer: Asdf Bot
 tag: Guild News
