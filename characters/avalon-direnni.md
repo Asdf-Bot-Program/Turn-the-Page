@@ -10,10 +10,10 @@ combat_style: Duel welding swords, she often uses light and fast attacks to
   light, she often confuses her enemies during her attacks.
 guild_rank: Officer
 portrait: /assets/images/uploads/1246a4d9-1e71-4d4b-a047-3234cf12f8fb.png
-physical_description: Breton female often considered on the smaller side with
-  long black hair put into a ponytail. Kind round face with glowing bright blue
-  Azure Eyes. Often seen wearing light, dark blue, and black armor with multiple
-  silver accents.
+physical_description: Breton Female often considered on the smaller side, with
+  long black hair put into a ponytail. Kind, round face with glowing, bright
+  blue Azure Eyes. Often seen wearing light, dark blue, and black armor with
+  multiple silver accents.
 notable_features: Her bright blue azure eyes, which often radiate the energies
   of Moonshadow itself.
 personality: "Very kind-natured and often tries to see the best in people. Tries
