@@ -7,6 +7,7 @@ primary_class: Nightblade
 secondary_class: Warden
 combat_style: Dual-wielding daggers / Short swords and Archery.
 guild_rank: Member
+portrait: /assets/images/uploads/spoiler_tumblr_l_531857419736537.jpg
 physical_description: "Short; Somewhat lithe, other than a round ass and
   muscular legs (that's important, so take notes). "
 notable_features: Tan skin, freckled, red curly hair and blue eyes. Plus her
