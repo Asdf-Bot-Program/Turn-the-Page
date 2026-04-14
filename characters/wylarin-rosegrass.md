@@ -1,21 +1,23 @@
 ---
-character_name: "Wylarin Rosegrass "
+character_name: "Wylarin (Wy) Rosegrass "
 race: Bosmer
 age: Around 25
 gender_pronouns: Female, She/Her
 primary_class: Nightblade
 secondary_class: Warden
-combat_style: Dual wielding daggers / short swords and archery.
+combat_style: Dual-wielding daggers / Short swords and Archery.
 guild_rank: Member
-physical_description: "Short,  pretty lithe other than a round ass and muscular
-  legs (that's important so take notes). "
+physical_description: "Short; Somewhat lithe, other than a round ass and
+  muscular legs (that's important, so take notes). "
 notable_features: Tan skin, freckled, red curly hair and blue eyes. Plus her
   antlers that are currently growing in.
 personality: "Wylarian is very outgoing and kind, often wanting to help others
   before helping herself. She does unfortunately have a bit of a temper (a trait
   she got from her mum). "
-strengths: Archery, stealth, lock picking, alchemy, hunting, animal / people tracking.
-flaws_weaknesses: Strength, keeping cool when angry or flustered.
+strengths: Archery, stealth, lock picking, alchemy, hunting, animal/people
+  tracking, climbing, jewelry crafting, embroidery, and mending, keeping cool
+  when angry or flustered.
+flaws_weaknesses: TBD
 fears: Her village being forever destroyed, large fires, or watching another
   city be killed by Caedis.
 motivations_goals: |-
@@ -32,15 +34,15 @@ backstory: Wylarin is the youngest of 5 (and youngest of of a set of triplets).
   rarely be found staying put in one place.
 secrets: TBD
 contribution: "Other than being willing to help out for little to no
-  money,  Wylarian is more than happy to supply the estate with fresh meat and
-  or connect them with her mum's trade business "
+  money,  Wylarin is more than happy to supply the estate with fresh meat and or
+  connect them with her mum's trade business. "
 how_found: TBD
 usual_corner: Out front, but sometimes inside by the bar
 first_night: The night that Chronos used his tentacles to throttle an employee.
   Shaking him around violently, it was not a pleasant state to walk in on,
   however she still sticks around!
-relationships: Wylarian enjoys talking to / spending time around Avalon, Mia,
-  Bayard, Oberon, and Iris.  She sees Chronos as an amusing / annoying little
+relationships: Wylarin enjoys talking to and spending time with Avalon, Mia,
+  Bayard, Oberon, and Iris.  She sees Chronos as an amusing/annoying little
   brother.
 player_discord: "Discord: Sleepygremlin. Xbox:SLEEPyGreml1n "
 rp_preferences: Voice and text
