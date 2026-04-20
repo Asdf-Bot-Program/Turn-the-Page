@@ -60,6 +60,17 @@ collections:
       - label: "Secondary Class"
         name: "secondary_class"
         widget: "select"
+        options:
+          - Dragonknight
+          - Sorcerer
+          - Nightblade
+          - Templar
+          - Warden
+          - Necromancer
+          - Arcanist
+      - label: "Tertiary Class"
+        name: "tertiary_class"
+        widget: "select"
         required: false
         options:
           - Dragonknight
@@ -77,19 +88,19 @@ collections:
           - Member
           - Officer
           - Guild Master
-          # NOTE: Replace these with your actual guild rank names when ready
+          # NOTE: Replace these with your actual guild rank names
       - { label: "Portrait", name: "portrait", widget: "image", required: false }
 
       # Appearance
-      - { label: "Physical Description", name: "physical_description", widget: "text", hint: "Height, build, coloring, how they carry themselves." }
-      - { label: "Notable Features", name: "notable_features", widget: "text", required: false, hint: "Scars, tattoos, unusual markings — anything that stands out at a glance." }
+      - { label: "Physical Description", name: "physical_description", widget: "text" }
+      - { label: "Notable Features", name: "notable_features", widget: "text" }
 
       # Character
       - { label: "Personality", name: "personality", widget: "text" }
       - { label: "Strengths", name: "strengths", widget: "text" }
-      - { label: "Flaws & Weaknesses", name: "flaws_weaknesses", widget: "text" }
+      - { label: "Weaknesses", name: "flaws_weaknesses", widget: "text" }
       - { label: "Fears", name: "fears", widget: "text" }
-      - { label: "Motivations & Goals", name: "motivations_goals", widget: "text", hint: "What keeps them traveling with the guild?" }
+      - { label: "Motivations and Goals", name: "motivations_goals", widget: "text" }
 
       # Background
       - { label: "Birthplace", name: "birthplace", widget: "string" }
@@ -111,26 +122,26 @@ collections:
           - The Shadow
           - The Tower
       - { label: "History / Backstory", name: "backstory", widget: "markdown" }
-      - { label: "Secrets", name: "secrets", widget: "text", required: false, hint: "Things their character hasn't told the guild IC. Optional." }
+      - { label: "Secrets", name: "secrets", widget: "text" }
 
       # Guild Role
-      - { label: "What They Bring to the Estate", name: "contribution", widget: "text", hint: "Are they a guard, trader, translator, historian? Their IC function." }
-      - { label: "How They Found the Sugar Falls Estate", name: "how_found", widget: "text" }
-      - { label: "Usual Corner at the Sugar Falls", name: "usual_corner", widget: "string", hint: "The bar, a back table, near the fire, outside on the steps..." }
-      - { label: "First Night at the Sugar Falls", name: "first_night", widget: "text", hint: "How and when did their character first walk through the door?" }
-      - { label: "Notable Relationships", name: "relationships", widget: "text", required: false, hint: "Other guild members they are close to, rivals, etc." }
+      - { label: "What They Bring to the Estate", name: "contribution", widget: "text" }
+      - { label: "Usual Corner at the Estate", name: "usual_corner", widget: "string" }
+      - { label: "First Night at the Estate", name: "first_night", widget: "text" }
+      - { label: "Notable Relationships", name: "relationships", widget: "text" }
 
       # RP Hooks
       - label: "RP Hooks"
         name: "rp_hooks"
         widget: "list"
-        hint: "Add a few hooks other players can use as an excuse to approach this character."
+        required: false
+        hint: "Optional — add hooks other players can use to approach this character."
         field: { label: "Hook", name: "hook", widget: "string" }
 
       # OOC Section
       - { label: "Player Name / Discord Handle", name: "player_discord", widget: "string" }
-      - { label: "RP Preferences", name: "rp_preferences", widget: "text", hint: "Combat-heavy, drama, slice of life, all of the above, etc." }
-      - { label: "Comfort & Limits", name: "comfort_limits", widget: "text", required: false, hint: "Optional but encouraged." }
+      - { label: "Roleplay Preferences", name: "rp_preferences", widget: "text" }
+      - { label: "Comfort & Limits", name: "comfort_limits", widget: "text" }
       - label: "Character Status"
         name: "character_status"
         widget: "select"
