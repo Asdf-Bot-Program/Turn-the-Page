@@ -60,6 +60,7 @@ collections:
       - label: "Secondary Class"
         name: "secondary_class"
         widget: "select"
+        required: false
         options:
           - Dragonknight
           - Sorcerer
@@ -86,6 +87,7 @@ collections:
         widget: "select"
         options:
           - Member
+          - Story Lead
           - Officer
           - Guild Master
           # NOTE: Replace these with your actual guild rank names
