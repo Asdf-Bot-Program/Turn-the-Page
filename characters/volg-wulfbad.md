@@ -5,6 +5,7 @@ age: "36"
 gender_pronouns: Male, He/Him
 primary_class: Warden
 secondary_class: Nightblade
+tertiary_class: Dragonknight
 combat_style: Savage Attacker, Great sword, Hand Axe and Shield
 guild_rank: Member
 physical_description: A large and brawny Nord with Wolflike / Wolfen features and aesthetics.
@@ -93,7 +94,6 @@ backstory: "He was born in blood, his mother screaming herself to death as he
   die. He’ll become the very thing he’s spent his life slaughtering."
 secrets: TBD
 contribution: Heightened Senses, Raw Muscle, and a Focused Mind
-how_found: TBD
 usual_corner: In the Skooma Den
 first_night: TBD
 relationships: >-
@@ -112,4 +112,5 @@ player_discord: freezyjeezy
 rp_preferences: Text and Voice
 comfort_limits: No Rape, No kid stuff, chewing with mouth open
 character_status: Active
+how_found: TBD
 ---
