@@ -7,7 +7,7 @@ primary_class: Warden
 secondary_class: Nightblade
 tertiary_class: Dragonknight
 combat_style: "Savage Attacker: Greatsword, 2 Shortswords, and Shield"
-guild_rank: Member
+guild_rank: Story Lead
 portrait: /assets/images/uploads/image0.jpg
 physical_description: A large and brawny Nord with Wolfen features and aesthetics.
 notable_features: A Wolf Helmet and a sword that’s too big, too heavy, and too rough.
