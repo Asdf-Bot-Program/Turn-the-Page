@@ -5,11 +5,11 @@ age: "35"
 gender_pronouns: Male, He/Him
 primary_class: Templar
 secondary_class: Templar
-combat_style: A Sword and Shield, Aedric based Restoration spells, and
+combat_style: A Sword and Shield, Aedric-based Restoration spells, and a
   Fire-based Destruction Staff.
 guild_rank: Member
-physical_description: "Short and frail thin for a Breton. Brown Hair, Glowing
-  blue eyes (A meaningful gift from Stendarr). An average looking face. "
+physical_description: "Short and frail, thin for a Breton. Brown Hair, Glowing
+  blue eyes (A meaningful gift from Stendarr). An average-looking face. "
 notable_features: "Glowing Blue Eyes (Formally very pale blue eyes) "
 personality: "Diplomatic and sees all sapient beings as having value. Dislikes
   violence, but when pressed will fight. Occasionally, he lets his inner
@@ -34,11 +34,11 @@ backstory: Born sickly to parents that did not love him as much as his perfect
   became a Knight Medicus, later the head of the Knights Medicus for their
   chapter house and Senechal on the Grandmaster's Small Council. Joined the
   Hermetic Order of the Sacred Oak , became a pawn of Hermaeus Mora known as
-  Fate's Fool. Mistaking this as the intervention od Stendarr, he guided the
+  Fate's Fool. Mistaking this as the intervention of Stendarr, he guided the
   Sacred Oak to stop Geventhal the Scarred from destroying Nirn with a Dwemer
   Device buried deep below Koeglin Village.  When they triumphed, Mora compelled
   Bayard to jump to his death from the Thraot of the World, but the Sacred Oak
-  reused that outcome, preserved his body and removed Bayard 's soul from its
+  refused that outcome, preserved his body and removed Bayard 's soul from its
   prison and resurrected Bayard. Then Bayard was told through a final vision
   that Stendarr had not abandoned him and set the Sacred Oak in his path to
   eventually save him. Since then he found love in a Redguard named Solana Alryn
@@ -47,7 +47,6 @@ secrets: "Bayard still thinks himself ugly and often must be coerced to show his
   face. With glowing eyes, he heavily dislikes the attention he gets by showing
   them in public. He has an unused Werewolf trap in the Brothers' Keep. "
 contribution: "Patient counsel and healing "
-how_found: TBD
 usual_corner: Near a fire, preferably in a rocking chair. Under the blossom tree
   outside the entrance when reading
 first_night: TBD
@@ -65,4 +64,5 @@ player_discord: "Skywalker "
 rp_preferences: Text and Voice
 comfort_limits: "Whatever happens, happens but i dislike PVP. "
 character_status: Active
+how_found: TBD
 ---
