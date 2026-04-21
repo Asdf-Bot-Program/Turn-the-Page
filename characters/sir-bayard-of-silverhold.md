@@ -8,7 +8,7 @@ secondary_class: null
 tertiary_class: null
 combat_style: A Sword and Shield, Aedric-based Restoration spells, and a
   Fire-based Destruction Staff.
-guild_rank: Member
+guild_rank: Story Lead
 physical_description: "Short and frail, thin for a Breton. Brown Hair, Glowing
   blue eyes (A meaningful gift from Stendarr). An average-looking face. "
 notable_features: "Glowing Blue Eyes (Formally very pale blue eyes) "
