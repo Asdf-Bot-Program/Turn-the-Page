@@ -143,9 +143,10 @@ async function renderCharacterProfile() {
       'Traveling' : 'character-status--traveling',
       'On Hiatus' : 'character-status--hiatus',
     }[d.character_status] || 'character-status--active';
-    const classList = d.secondary_class
-      ? `${esc(d.primary_class)} / ${esc(d.secondary_class)}`
-      : esc(d.primary_class);
+    const classList = [d.primary_class, d.secondary_class, d.tertiary_class]
+  .filter(Boolean)
+  .map(esc)
+  .join(' / ');
     let hooksHTML = '<p class="profile-field-value" style="font-style:italic;color:var(--ink-faint)">None listed.</p>';
     if (d.rp_hooks && Array.isArray(d.rp_hooks) && d.rp_hooks.length) {
       hooksHTML = `<ul class="rp-hooks-list">
@@ -154,6 +155,8 @@ async function renderCharacterProfile() {
     }
     main.innerHTML = `
       <div class="profile-layout">
+
+        <!-- Header -->
         <div class="profile-header">
           ${d.portrait
             ? `<img class="profile-portrait" src="${esc(d.portrait)}" alt="Portrait of ${esc(d.character_name)}">`
@@ -169,52 +172,69 @@ async function renderCharacterProfile() {
                <span style="font-style:italic;color:var(--ink-light)"> ${esc(d.age)}</span></p>
             <p><strong style="font-family:var(--font-heading);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)">Pronouns:</strong>
                <span style="font-style:italic;color:var(--ink-light)"> ${esc(d.gender_pronouns)}</span></p>
-            <p><strong style="font-family:var(--font-heading);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)">Class:</strong>
-               <span style="font-style:italic;color:var(--ink-light)"> ${classList}</span></p>
+            <p><strong style="font-family:var(--font-heading);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)">Primary Class:</strong>
+               <span style="font-style:italic;color:var(--ink-light)"> ${esc(d.primary_class)}</span></p>
+            ${d.secondary_class ? `<p><strong style="font-family:var(--font-heading);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)">Secondary Class:</strong>
+               <span style="font-style:italic;color:var(--ink-light)"> ${esc(d.secondary_class)}</span></p>` : ''}
+            ${d.tertiary_class ? `<p><strong style="font-family:var(--font-heading);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)">Tertiary Class:</strong>
+               <span style="font-style:italic;color:var(--ink-light)"> ${esc(d.tertiary_class)}</span></p>` : ''}
             ${d.combat_style ? `<p style="margin-top:0.5rem;font-style:italic;color:var(--ink-light);font-size:0.9rem">${esc(d.combat_style)}</p>` : ''}
           </div>
         </div>
+
+        <!-- Appearance -->
         <div class="profile-section">
           <h3 class="profile-section-title">Appearance</h3>
           ${field('Physical Description', d.physical_description)}
-          ${field('Notable Features', d.notable_features)}
+          ${field('Notable Features',     d.notable_features)}
         </div>
+
+        <!-- Character -->
         <div class="profile-section">
           <h3 class="profile-section-title">Character</h3>
-          ${field('Personality', d.personality)}
-          ${field('Strengths', d.strengths)}
-          ${field('Flaws & Weaknesses', d.flaws_weaknesses)}
-          ${field('Fears', d.fears)}
-          ${field('Motivations & Goals', d.motivations_goals)}
+          ${field('Personality',         d.personality)}
+          ${field('Strengths',           d.strengths)}
+          ${field('Weaknesses',          d.flaws_weaknesses)}
+          ${field('Fears',               d.fears)}
+          ${field('Motivations and Goals', d.motivations_goals)}
         </div>
+
+        <!-- Background -->
         <div class="profile-section">
           <h3 class="profile-section-title">Background</h3>
           ${field('Birthplace', d.birthplace)}
-          ${field('Birthsign', d.birthsign)}
+          ${field('Birthsign',  d.birthsign)}
           <div class="profile-field">
             <span class="profile-field-label">History & Backstory</span>
             <div class="profile-field-value">${d.backstory ? marked.parse(String(d.backstory)) : '<em>Not yet recorded.</em>'}</div>
           </div>
           ${d.secrets ? field('Secrets', d.secrets) : ''}
         </div>
+
+        <!-- Guild Role -->
         <div class="profile-section">
           <h3 class="profile-section-title">Guild Role</h3>
           ${field('What They Bring to the Estate', d.contribution)}
-          ${field('How They Found the Sugar Falls Estate', d.how_found)}
-          ${field('Usual Corner at the Sugar Falls', d.usual_corner)}
-          ${field('First Night at the Sugar Falls', d.first_night)}
-          ${field('Notable Relationships', d.relationships)}
+          ${field('Usual Corner at the Estate',    d.usual_corner)}
+          ${field('First Night at the Estate',     d.first_night)}
+          ${field('Notable Relationships',         d.relationships)}
         </div>
+
+        <!-- RP Hooks -->
+        ${d.rp_hooks && d.rp_hooks.length ? `
         <div class="profile-section">
           <h3 class="profile-section-title">RP Hooks</h3>
           ${hooksHTML}
-        </div>
+        </div>` : ''}
+
+        <!-- OOC -->
         <div class="profile-section profile-ooc">
           <h3 class="profile-section-title">Out of Character</h3>
           ${field('Player / Discord Handle', d.player_discord)}
-          ${field('RP Preferences', d.rp_preferences)}
+          ${field('Roleplay Preferences',    d.rp_preferences)}
           ${d.comfort_limits ? field('Comfort & Limits', d.comfort_limits) : ''}
         </div>
+
         <div style="margin-top:2rem;text-align:center">
           <a href="roster.html" class="btn btn--outline">← Back to the Roster</a>
         </div>
