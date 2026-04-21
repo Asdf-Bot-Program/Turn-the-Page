@@ -5,6 +5,7 @@ age: 2,543, appears 19
 gender_pronouns: She/Her
 primary_class: Sorcerer
 secondary_class: Templar
+tertiary_class: Nightblade
 combat_style: Duel welding swords, she often uses light and fast attacks to
   overwhelm her enemies. Mixed with enchanted swords that can produce a bright
   light, she often confuses her enemies during her attacks.
@@ -71,7 +72,6 @@ backstory: Avalon Direnni was born during the 1st Era, year 960, in the
 secrets: She keeps no secrets!
 contribution: "Is currently acting as an assistant to help manage Sugar Falls
   and keep it in top shape. "
-how_found: Azura sent her to find the group in the form of a rabbit.
 usual_corner: All around making sure that everyone is having a good time!
 first_night: After first meeting with the Sugar Falls group in Grahtwood and
   being sent to jail, they escaped and took her back to Reaper's March, where
@@ -92,4 +92,5 @@ player_discord: Asdf_Bot
 rp_preferences: Casual, Slice of Life, Tavern RP
 comfort_limits: Fine with most things except violence towards children
 character_status: Active
+how_found: Azura sent her to find the group in the form of a rabbit.
 ---
