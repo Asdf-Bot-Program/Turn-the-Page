@@ -5,6 +5,7 @@ age: "35"
 gender_pronouns: Male, He/Him
 primary_class: Templar
 secondary_class: Templar
+tertiary_class: null
 combat_style: A Sword and Shield, Aedric-based Restoration spells, and a
   Fire-based Destruction Staff.
 guild_rank: Member
