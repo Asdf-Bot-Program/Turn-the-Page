@@ -179,9 +179,10 @@ async function renderRoster() {
         'Traveling' : 'character-status--traveling',
         'On Hiatus' : 'character-status--hiatus',
       }[data.character_status] || 'character-status--active';
-      const classList = data.secondary_class
-        ? `${esc(data.primary_class)} · ${esc(data.secondary_class)}`
-        : esc(data.primary_class);
+      const classList = [data.primary_class, data.secondary_class, data.tertiary_class]
+      .filter(Boolean)
+      .map(esc)
+      .join(' · ');
       const blurb = data.personality
         ? esc(data.personality).slice(0, 120) + (data.personality.length > 120 ? '…' : '')
         : '';
