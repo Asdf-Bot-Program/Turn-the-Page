@@ -6,7 +6,7 @@ gender_pronouns: Female, She/Her
 primary_class: Nightblade
 secondary_class: Warden
 combat_style: Dual-wielding daggers / Short swords and Archery.
-guild_rank: Member
+guild_rank: Story Lead
 portrait: /assets/images/uploads/spoiler_tumblr_l_531857419736537.jpg
 physical_description: "Short; Somewhat lithe, other than a round ass and
   muscular legs (that's important, so take notes). "
@@ -37,7 +37,6 @@ secrets: TBD
 contribution: "Other than being willing to help out for little to no
   money,  Wylarin is more than happy to supply the estate with fresh meat and or
   connect them with her mum's trade business. "
-how_found: TBD
 usual_corner: Out front, but sometimes inside by the bar
 first_night: The night that Chronos used his tentacles to throttle an employee.
   Shaking him around violently, it was not a pleasant state to walk in on,
@@ -50,4 +49,5 @@ rp_preferences: Voice and text
 comfort_limits: Flirting, angst, and I am capable / comfortable with nsfw rp i
   just haven't done it in several years.
 character_status: Active
+how_found: TBD
 ---
