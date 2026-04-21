@@ -8,7 +8,7 @@ secondary_class: Nightblade
 tertiary_class: Dragonknight
 combat_style: "Savage Attacker: Greatsword, 2 Shortswords, and Shield"
 guild_rank: Member
-portrait: https://cdn.discordapp.com/attachments/1193755061998845982/1492256253043544244/image0.jpg?ex=69e8832f&is=69e731af&hm=ce5a5b7507dc6a8fe9379978cd8af8b050ee25e1e765c2e34dac2d1f432dfad3
+portrait: ""
 physical_description: A large and brawny Nord with Wolfen features and aesthetics.
 notable_features: A Wolf Helmet and a sword that’s too big, too heavy, and too rough.
 personality: A mostly cold and dismissive exterior with a good-natured interior, pragmatic.
