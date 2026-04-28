@@ -6,6 +6,7 @@ gender_pronouns: Female, She/Her
 primary_class: Dragonknight
 combat_style: Berzerker Style
 guild_rank: Member
+portrait: /assets/images/uploads/210f6f59-6cfa-45aa-9426-3e344d5a36ad.png
 physical_description: Standing at 6ft 4in with molten black skin and glowing fire within.
 notable_features: N/A
 personality: "She is Kind, warm (literally), and a bit too protective. "
