@@ -6,6 +6,7 @@ gender_pronouns: Male, He/Him
 primary_class: Dragonknight
 combat_style: Greatsword/Aggressive
 guild_rank: Member
+portrait: /assets/images/uploads/37aeb991-9176-4350-9cf2-dfdc595d727f.png
 physical_description: Isaac stands at 6’8 with a broad, muscular physique. His
   face is rugged with a strong jawline and slightly weathered features from
   years of hardship and battle. While his face may always present a stoic
