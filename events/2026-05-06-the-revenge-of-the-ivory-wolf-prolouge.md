@@ -1,5 +1,5 @@
 ---
-title: The Revenge of the Ivory Wolf Prolouge
+title: The Revenge of the Ivory Wolf Prolouge Part 1
 date: 2026-05-06T18:30:00.000-04:00
 ic_premise: '"You all feel a presence of something on the wind..."'
 ooc_details: Please feel free to join us for a brand new Guild Story, The
