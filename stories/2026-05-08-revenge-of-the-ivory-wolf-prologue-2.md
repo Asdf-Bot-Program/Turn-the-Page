@@ -1,5 +1,5 @@
 ---
-title: Revenge of the Ivory Wolf Prologue 2
+title: Revenge of the Ivory Wolf Prologue Part 2
 date: 2026-05-08T18:30:00.000-04:00
 type: Session Transcript
 arc: Revenge of the Ivory Wolf
