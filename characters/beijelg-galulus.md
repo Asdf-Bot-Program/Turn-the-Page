@@ -52,5 +52,5 @@ relationships: N/A
 player_discord: Aslime
 rp_preferences: N/A
 comfort_limits: In-depth torture
-character_status: Active
+character_status: On Hiatus
 ---
