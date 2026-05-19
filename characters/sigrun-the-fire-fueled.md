@@ -190,5 +190,5 @@ relationships: N/A
 player_discord: Honeybyte v1
 rp_preferences: Voice RP
 comfort_limits: "Sorta just up for anything, honestly. "
-character_status: Active
+character_status: On Hiatus
 ---
