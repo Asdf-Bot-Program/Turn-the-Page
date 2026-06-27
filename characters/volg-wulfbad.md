@@ -20,7 +20,7 @@ fears: Turning into a savage, heartless werewolf. Being alone
 motivations_goals: "First, Volg was motivated by survival; then, by pure rage
   and revenge. Upon meeting Sugar Falls: finding meaning. Now Volg seeks agency,
   so as not to be used as a tool by anyone, as well as a personal connection."
-birthplace: Windhelm
+birthplace: Windhelm; Eastmarch
 birthsign: The Steed
 backstory: >-
   He was born in blood, his mother screaming herself to death as he clawed his
@@ -68,13 +68,13 @@ backstory: >-
   And he slaughtered it. 
 
 
-  Men, Women, Children, all Torn apart to fuel the mage’s power. When it was done, when Volg had served his purpose, Caedus discarded him like a dull blade. 
+  Men, Women, Children, all torn apart to fuel the mage’s power. When it was done, when Volg had served his purpose, Caedus discarded him like a dull blade. 
 
 
-  Dying, Rotting, Losing himself. Volg crawled back to the only place his instincts called safe, Sugar Falls. They saved him again, Mia, Evening, and Vivienne, They brought him back from the brink of death. But something had changed, the wolf wasn’t just a beast anymore. It was him. 
+  Dying, Rotting, Losing himself. Volg crawled back to the only place his instincts called safe, Sugar Falls. They saved him again, Mia, Evening, and Vivienne. They brought him back from the brink of death. But something had changed; the wolf wasn’t just a beast anymore. It was him. 
 
 
-  Now Volg walks Tamriel again, blade in hand. But the fight is no longer simple, It is not man vs monster, It is two survivors… trapped in the same body.Volg And Vicious. Circling each other, testing each other, Refusing to die. He hunts monsters, But he knows the truth. One day…he will lose and when he does, he won’t just die. He’ll become the very thing he’s spent his life slaughtering.
+  Now Volg walks Tamriel again, blade in hand. But the fight is no longer simple. It is not man vs monster, it is two survivors… trapped in the same body. Volg And Vicious. Circling each other, testing each other, refusing to die. He hunts monsters, but he knows the truth. One day…he will lose, and when he does, he won’t just die. He’ll become the very thing he’s spent his life slaughtering.
 secrets: TBD
 contribution: Heightened Senses, Raw Muscle, and a Focused Mind
 usual_corner: In the Den
