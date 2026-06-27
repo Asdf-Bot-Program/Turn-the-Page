@@ -50,7 +50,8 @@ secrets: "Bayard still thinks himself ugly and often must be coerced to show his
 contribution: "Patient counsel and healing "
 usual_corner: Near a fire, preferably in a rocking chair. Under the blossom tree
   outside the entrance when reading
-first_night: TBD
+first_night: Bayard, like many a wayward adventurer who finds themselves at the
+  Sugar Falls Estate, was a weary traveler in need of respite.
 relationships: |-
   The Grandmaster of the Order of Evermore Adahm. 
 
@@ -63,7 +64,7 @@ relationships: |-
   Friends to Paxtyl the All-Seeing. 
 player_discord: "Skywalker "
 rp_preferences: Text and Voice
-comfort_limits: "Whatever happens, happens but i dislike PVP. "
+comfort_limits: "Whatever happens, happens but I dislike PVP. "
 character_status: Active
 how_found: TBD
 ---
