@@ -1,6 +1,6 @@
 ---
 title: Revenge of the Ivory Wolf Session 5
-date: 2026-06-10T18:30:00.000-04:00
+date: 2026-06-17T18:30:00.000-04:00
 type: Session Transcript
 arc: Revenge of the Ivory Wolf
 ---
